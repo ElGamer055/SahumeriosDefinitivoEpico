@@ -1,0 +1,76 @@
+
+
+/***   Encabezado   ***/
+    nav {
+      position: absolute;
+      top: 0;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      gap: 5rem;
+      padding: 2rem 0;
+      background: #000;
+      font-family: 'Irish Grover', cursive;
+      z-index: 10;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      font-size: 1.2rem;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: #cfa8ff;
+    }
+
+    .logo {
+      position: absolute;
+      top: 80px;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      font-family: 'Irish Grover', cursive;
+      color: #fff;
+      z-index: 12;
+    }
+
+    .logo h1 {
+      font-size: 2.5rem;
+      margin-top: 40px;
+      line-height: 1.2;
+      text-shadow: 0 4px 18px rgba(0,0,0,0.6);
+    }
+
+
+/***   Footer   ****/
+.footer {
+  background-color: #000;
+  color: white;
+}
+
+.footer h5 {
+  font-size: 1.3rem;
+  margin-bottom: 0.8rem;
+}
+
+.footer .social-icons a {
+  color: white;
+  margin: 0 0.5rem;
+  font-size: 1.3rem;
+  transition: color 0.3s ease;
+}
+
+.footer .social-icons a:hover {
+  color: #c9a7ff;
+}
+
+.footer small {
+  display: block;
+  margin-top: 0.3rem;
+  opacity: 0.7;
+  font-size: 0.9rem;
+}
