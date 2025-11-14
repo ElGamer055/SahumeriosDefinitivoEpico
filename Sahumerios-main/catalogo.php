@@ -97,13 +97,19 @@ $resultado = $conn->query($sql);
         $imgPath = 'img/sahur.jpg';
       }
       ?>
-      <a class="product-card" href="Productos.php?id=<?php echo $fila['ID']; ?>" style="text-decoration:none;color:inherit;">
+      <a class="product-card" href="Productos.php?id=<?php echo $fila['ID']; ?>" style="text-decoration: none; color: inherit;">
         <img src="<?php echo htmlspecialchars($imgPath); ?>" alt="<?php echo htmlspecialchars($fila['Titulo']); ?>">
-        <h2><?php echo $fila['Titulo']; ?></h2>
-        <p><?php echo $fila['Descripcion']; ?></p>
-        <span class="precio">$<?php echo number_format($fila['Precio'], 2); ?></span>
-
-    </a>
+        
+        <div class="overlay">
+          <div class="meta">Producto</div>
+          <div class="title"><?php echo $fila['Titulo']; ?></div>
+          <div class="desc"><?php echo $fila['Descripcion']; ?></div>
+        </div>
+        
+        <div class="card-footer">
+          <span class="precio" >$<?php echo number_format($fila['Precio'], 2); ?></span>
+        </div>
+      </a>
     <?php } ?>
   </div>
 
