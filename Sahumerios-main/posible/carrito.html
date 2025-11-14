@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carrito de compras - Sahumerios Teiwaz</title>
+  <link rel="stylesheet" href="caritoEstilo.css">
+</head>
+<body>
+  <header class="header">
+    <h1>Sahumerios Teiwaz</h1>
+    <button id="openCart" class="toggle-cart">🛒 Carrito</button>
+  </header>
+
+  <main class="main-container">
+    <div class="content">
+      <h2>Bienvenido a nuestra tienda</h2>
+      <p>Elegí tus sahumerios favoritos y abrí el carrito con el botón 🛒.</p>
+    </div>
+
+    <div id="overlay" class="overlay"></div>
+
+    <!-- PANEL DESPLEGABLE -->
+    <section class="cart-panel" id="cartPanel">
+      <div class="cart-header">
+        <h2>Carrito de compras</h2>
+        <button id="closeCart" class="close-btn">✖</button>
+      </div>
+
+ 
+      <div class="cart-container" id="cartContainer">->
+      </div>
+
+   
+      <div class="cart-footer">
+        <div class="cart-total">
+          <label>Total:</label>
+          <input type="text" readonly value="$0">
+        </div>
+        <div class="cart-actions">
+          <button class="clear">Vaciar</button>
+          <button class="confirm">Confirmar compra</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-left">
+      <p>Sahumerios Teiwaz</p>
+      <p>instagram  mail  adadas  adssadas</p>
+    </div>
+    <div class="footer-right">
+      <a href="#">Contacto</a>
+    </div>
+    <p class="rights">© 2025 Sahumerios Teiwaz. Todos los derechos reservados.</p>
+  </footer>
+
+<script>
+  
+  const getCart = () => JSON.parse(localStorage.getItem('cart') || '[]');
+  const saveCart = (cart) => localStorage.setItem('cart', JSON.stringify(cart));
+
+
+  const cartContainer = document.getElementById('cartContainer');
+  const cartPanel = document.getElementById('cartPanel');
+  const overlay = document.getElementById('overlay');
+
+  const formatPrice = v => `$${v.toLocaleString('es-AR')}`;
+
+  function renderCart() {
+    const cart = getCart();
+    cartContainer.innerHTML = '';
+    if (cart.length === 0) {
+      cartContainer.innerHTML = '<p>El carrito está vacío.</p>';
+      updateTotal();
+      return;
+    }
+
+    cart.forEach(item => {
+      const div = document.createElement('div');
+      div.className = 'cart-item';
+      div.innerHTML = `
+        <img src="${item.image || 'https://via.placeholder.com/60'}" alt="Producto">
+        <div class="item-info">
+          <h3>${item.title}</h3>
+          <p>Aroma: ${item.aroma || ''}</p>
+          <span class="price">${formatPrice(item.price)}</span>
+        </div>
+        <div class="quantity">
+          <button class="minus">-</button>
+          <input type="number" value="${item.quantity || 1}" min="1" readonly>
+          <button class="plus">+</button>
+        </div>
+        <button class="delete">Eliminar</button>
+      `;
+      cartContainer.appendChild(div);
+
+ 
+      const minusBtn = div.querySelector('.minus');
+      const plusBtn = div.querySelector('.plus');
+      const input = div.querySelector('input');
+      const deleteBtn = div.querySelector('.delete');
+
+      minusBtn.addEventListener('click', () => {
+        let q = parseInt(input.value);
+        if (q > 1) q--;
+        input.value = q;
+        updateCartItemQuantity(item.id, q);
+      });
+
+      plusBtn.addEventListener('click', () => {
+        let q = parseInt(input.value) + 1;
+        input.value = q;
+        updateCartItemQuantity(item.id, q);
+      });
+
+      deleteBtn.addEventListener('click', () => {
+        removeCartItem(item.id);
+      });
+    });
+
+    updateTotal();
+  }
+
+  function updateCartItemQuantity(id, quantity) {
+    const cart = getCart();
+    const idx = cart.findIndex(i => i.id === id);
+    if (idx > -1) {
+      cart[idx].quantity = quantity;
+      saveCart(cart);
+      updateTotal();
+    }
+  }
+
+  function removeCartItem(id) {
+    let cart = getCart();
+    cart = cart.filter(i => i.id !== id);
+    saveCart(cart);
+    renderCart();
+  }
+
+  const openCart = document.getElementById('openCart');
+  const closeCart = document.getElementById('closeCart');
+
+  openCart.addEventListener('click', () => {
+    cartPanel.classList.add('open');
+    overlay.classList.add('show');
+    renderCart();
+  });
+
+  closeCart.addEventListener('click', () => {
+    cartPanel.classList.remove('open');
+    overlay.classList.remove('show');
+  });
+
+  overlay.addEventListener('click', () => {
+    cartPanel.classList.remove('open');
+    overlay.classList.remove('show');
+  });
+
+  window.addEventListener('storage', (e) => {
+    if (e.key === 'cartOpen') {
+      cartPanel.classList.add('open');
+      overlay.classList.add('show');
+      renderCart();
+    }
+  });
+
+
+  function updateTotal() {
+    const cart = getCart();
+    const total = cart.reduce((sum, it) => sum + (it.price * (it.quantity || 1)), 0);
+    const totalInput = document.querySelector('.cart-total input');
+    if (totalInput) totalInput.value = formatPrice(total);
+  }
+
+  
+  const clearBtn = document.querySelector('.clear');
+  if (clearBtn) {
+    clearBtn.addEventListener('click', () => {
+      localStorage.removeItem('cart');
+      renderCart();
+    });
+  }
+
+  const confirmButton = document.querySelector('.confirm');
+  if (confirmButton) {
+    confirmButton.addEventListener('click', () => {
+      const cart = getCart();
+      if (cart.length === 0) {
+        alert("Tu carrito está vacío.");
+        return;
+      }
+
+      const modal = document.createElement('div');
+      modal.classList.add('modal');
+      modal.innerHTML = `
+        <div class="modal-content">
+          <h3>✅ Su compra ha sido realizada</h3>
+          <p>Se le enviará una confirmación al mail de su compra.</p>
+          <button id="closeModal">Aceptar</button>
+        </div>
+      `;
+      document.body.appendChild(modal);
+      document.getElementById('closeModal').addEventListener('click', () => {
+        modal.remove();
+        localStorage.removeItem('cart');
+        renderCart();
+        cartPanel.classList.remove('open');
+        overlay.classList.remove('show');
+      });
+    });
+  }
+
+  
+  renderCart();
+</script>
+
+</body>
+</html>
+
+
