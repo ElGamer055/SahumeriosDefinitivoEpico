@@ -8,6 +8,6 @@ $_SESSION = [];
 session_destroy();
 
 // Redirigir al login o página principal
-header("Location: index.php");
+header("Location: posiblePrincipal.php");
 exit();
 ?>
