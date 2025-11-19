@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
   <link rel="stylesheet" href="css/bootstrap.css">
   <link rel="stylesheet" href="css/main3.css">
+  <link rel="stylesheet" href="posible/index.css">
   <title>Teiwaz Sahumerios</title>
 </head>
 <body>
@@ -19,8 +20,14 @@
   header_menu();
   ?>
 
+  
+
+  <!-- Título centrado -->
+   <hr style="border-top: 2px solid #000;" class=" py-4">
+  <h1 class="text-center py-4">Catálogo de productos</h1>
+
   <!-- barra de búsqueda fija -->
-  <form class="top-search d-flex" role="search" id="searchForm">
+  <form class="top-search d-flex px-4 mt-4" role="search" id="searchForm">
     <input class="form-control me-2" type="search" id="searchInput" placeholder="Search" aria-label="Search"/>
     <div class="dropdown">
       <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="filterDropdown" data-bs-toggle="dropdown">
@@ -34,8 +41,6 @@
     </div>
   </form>
 
-  <!-- Título centrado -->
-  <h1 class="site-title">Catálogo de Productos</h1>
 
   <script>
     function setFilter(filterType) {
@@ -100,6 +105,20 @@
     <?php } ?>
   </div>
 
+  <footer class="bg-black text-light mt-4">
+    <div class="d-flex justify-content-between align-items-center py-4 px-4 border-bottom border-secondary flex-wrap">
+      <h1 class="px-3">Sahumerios Teiwaz</h1>
+      <div class="d-flex gap-4 px-4 mt-2">  
+        <i class="fa-brands fa-facebook fa-2xl"></i>
+        <i class="fa-brands fa-linkedin fa-2xl"></i>
+        <i class="fa-brands fa-youtube fa-2xl"></i>
+        <i class="fa-brands fa-instagram fa-2xl"></i>
+      </div>
+    </div>
+    <div class="container py-4 text-center">
+      <p class="mb-0 text-secondary">&copy; 2024 Teiwaz Sahumerios. Todos los derechos reservados.</p>
+    </div>
+  </footer>
   <script src="js/main.js"></script>
   <script src="js/bootstrap.js"></script>
 </body>
