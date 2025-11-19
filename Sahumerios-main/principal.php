@@ -1,39 +1,35 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-  <link rel="stylesheet" href="css/bootstrap.css">
-  <link rel="stylesheet" href="css/main3.css">
-  <title>Teiwaz Sahumerios</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bienvenida - Sahumerios Teiwaz</title>
+  <link href="https://fonts.googleapis.com/css2?family=Irish+Grover&family=Montserrat:wght@300;500;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="cssPrincipal.css">
+  <link rel="stylesheet" href="cssGeneral.css">
+  <script src="https://kit.fontawesome.com/a2e0c7e7d3.js"></script>
 </head>
-<body>
-
+<body style="background: url('img/foto.png') center/cover no-repeat;">
     <?php
     session_start();//para mantener la sesion abierta
     include 'holasoyfunciones.php';
+
     $Nombre_de_usuario = $_SESSION['user'];
-    $Nombre = $_SESSION['nom'];
-    $Imagen=$_SESSION['dni'];
-    $Permiso = $_SESSION['permisos'];
-    $DNI = $_SESSION['dni'];
-    ?>
-  
-
-    <?php
-        header_sahumerios($Nombre_de_usuario);
+    navAdmin();
     ?>
 
-      <h1>Teiwaz Sahumerios</h1>
-      <h2 id="frase-aleatoria"></h2>
-    </header>
-<body>
+  <section class="principal-section">
+    <h1>Bienvenida</h1>
+    <h2><?php echo "$Nombre_de_usuario"?></h2>
+  </section>
+
   <?php
-    body_sahumerios();
+    footer();
   ?>
 
+  <script src="js/jquery-3.2.1.slim.min.js"></script>
+  <script src="js/popper.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
 </body>
-<script src="js/main.js"></script>
-<script src="js/bootstrap.js"></script>
 </html>

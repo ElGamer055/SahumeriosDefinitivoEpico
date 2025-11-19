@@ -13,15 +13,17 @@
     session_start();//para mantener la sesion abierta
     include 'holasoyfunciones.php';
     $Nombre_de_usuario = $_SESSION['user'];
-    $Nombre = $_SESSION['nom'];
+    $Cargo = $_SESSION['idcargo'];
     ?>
   
 
     <?php
-        header_menu();//Header importado desde holasoyfunciones.php
+        header_menu($Nombre_de_usuario, $Cargo);//Header importado desde holasoyfunciones.php
     ?>
 <body>
-    <?php
+  <main>
+    <div class="product-page">
+      <?php
 include("conexion.php");
 
 // Obtener la id enviada por GET desde catalogo: Productos.php?id=123
@@ -142,36 +144,43 @@ if ($fila) {
 }
 </style>
 
-<div class="product-page">
-  <div class="product-hero">
-    <img class="hero-img" src="<?php echo htmlspecialchars($imgPath); ?>" alt="<?php echo $titulo; ?>">
-    <div class="product-card-overlay">
-      <h1><?php echo $titulo; ?></h1>
+      <div class="product-hero">
+        <img class="hero-img" src="<?php echo htmlspecialchars($imgPath); ?>" alt="<?php echo $titulo; ?>">
+        <div class="product-card-overlay">
+          <h1><?php echo $titulo; ?></h1>
 
-      <div class="product-info-row">
-        <strong>Descripción del producto</strong>
-        <div style="margin-top:6px; color:rgba(255,255,255,0.85)"><?php echo $descripcion; ?></div>
-      </div>
+          <div class="product-info-row">
+            <strong>Descripción del producto</strong>
+            <div style="margin-top:6px; color:rgba(255,255,255,0.85)"><?php echo $descripcion; ?></div>
+          </div>
 
-      <div class="product-info-row">
-        <strong>Precio del producto</strong>
-        <div class="product-price">$<?php echo $precio; ?></div>
-      </div>
+          <div class="product-info-row">
+            <strong>Precio del producto</strong>
+            <div class="product-price">$<?php echo $precio; ?></div>
+          </div>
 
-      <div class="product-actions">
-        <form method="post" action="cart_add.php" style="display:inline;">
-          <input type="hidden" name="id" value="<?php echo intval($id); ?>">
-          <button type="submit" class="btn-primary-custom">Agregar al carrito</button>
-        </form>
-
-      </div>
+            <div class="product-actions">
+              <?php
+                // Obtener precio numérico para JavaScript
+                $price_numeric = isset($fila['Precio']) ? number_format((float)$fila['Precio'], 2, '.', '') : '0.00';
+              ?>
+              <!-- Botón que usa main.js para añadir al carrito (sin enviar formulario) -->
+              <button type="button"
+                      class="btn-primary-custom"
+                      data-add-to-cart
+                      data-id="<?php echo intval($id); ?>"
+                      data-title="<?php echo htmlspecialchars($titulo, ENT_QUOTES); ?>"
+                      data-price="<?php echo $price_numeric; ?>"
+                      data-img="<?php echo htmlspecialchars($imgPath, ENT_QUOTES); ?>">
+                Agregar al carrito
+              </button>
+            </div>
+          </div>
+        </div>
     </div>
-  </div>
-</div>
+  </main>
 
-<?php footer(); // Footer importado desde holasoyfunciones.php ?>
-
+  <?php footer(); // Footer importado desde holasoyfunciones.php ?>
 </body>
-<script src="js/main.js"></script>
 <script src="js/bootstrap.js"></script>
 </html>

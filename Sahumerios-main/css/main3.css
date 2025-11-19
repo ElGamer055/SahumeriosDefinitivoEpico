@@ -1,7 +1,7 @@
 body {
   font-family: 'Arial', sans-serif;
-  background: linear-gradient(#000000 15%, #522969 30%, #5d57a7 50%, #522969 70%, #000000 85%);
-  background-size: cover;
+  /* Background movido a posible/index.css para evitar duplicados y distorsión */
+  background: none;
   color: white;
   margin: 0;
   padding: 0;
@@ -39,37 +39,31 @@ h3 {
   font-size: clamp(1.3rem, 5vw, 2rem);
 }
 
-/* ===== GRID DE PRODUCTOS ===== */
-.products {
+.products { 
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1%;
   max-width: 100%;
-  padding: 30px 20px;
-  margin: 20px auto;
-  container-type: inline-size;
+  padding: 20px;
 }
 
 .product-card {
   justify-self: center;
   position: relative;
   width: 100%;
-  aspect-ratio: 16 / 10;
-  border-radius: 12px;
+  height: 280px;
+  border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
   background: #222;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform .18s ease, box-shadow .18s ease;
   color: white;
   text-decoration: none;
-  display: block;
-  border: 2px solid rgba(178, 94, 244, 0.1);
 }
 
 .product-card:hover {
-  transform: translateY(-8px) scale(1.02);
-  box-shadow: 0 14px 32px rgba(178, 94, 244, 0.3);
-  border-color: rgba(178, 94, 244, 0.5);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.5);
 }
 
 .product-card:visited {
@@ -339,12 +333,11 @@ footer {
 @media (max-width: 768px) {
   .products {
     grid-template-columns: 1fr;
-    gap: 16px;
-    padding: 20px 15px;
   }
 
   .product-card {
-    aspect-ratio: 16 / 10;
+    width: 100%;
+    height: 240px;
   }
 }
 
@@ -352,18 +345,10 @@ footer {
   .products {
     grid-template-columns: 1fr;
     gap: 12px;
-    padding: 15px 10px;
+    padding: 15px;
   }
 
   .product-card {
-    aspect-ratio: 16 / 9;
-  }
-
-  .product-card .overlay .title {
-    font-size: 15px;
-  }
-
-  .product-card .overlay .desc {
-    font-size: 12px;
+    height: 200px;
   }
 }

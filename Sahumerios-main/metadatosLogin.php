@@ -24,7 +24,7 @@
             $_SESSION['cargo']=$row['Nombre_cargo'];
             //redirige a 'principal.php' si el resultado es mayor que 0
         }
-        header('location:principal.php');
+        header('location:posiblePrincipal.php');
     }else{
         //si el resultado no es mayor que 0, se muestra un mensaje de eeror usando javascript alert() y se redirige a 'login.php'.
         echo '<script language="javascript">

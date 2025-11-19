@@ -13,8 +13,12 @@
 </head>
 <body>
   <?php
-include 'holasoyfunciones.php'; 
-header_menu();
+  session_start();
+include 'holasoyfunciones.php';
+    $Nombre_de_usuario = $_SESSION['user'];
+    $Cargo = $_SESSION['idcargo'];
+    
+  header_menu($Nombre_de_usuario,  $Cargo);
 ?>
 
   <!-- Botones de menú y carrito -->

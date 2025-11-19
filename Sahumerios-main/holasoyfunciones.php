@@ -1,7 +1,7 @@
 <?php 
 error_reporting(0);
 
-function header_menu(){
+function header_menu($Nombre_de_usuario, $Cargo){
   ?>
   <!-- Botones de menú y carrito -->
   <div class="position-fixed top-0 start-0 p-3 z-3">
@@ -21,10 +21,26 @@ function header_menu(){
     </div>
     <div class="offcanvas-body">
       <ul class="list-unstyled listaMenu">
+        <?php if (isset($Nombre_de_usuario) == false): ?>
         <li><a href="posiblePrincipal.php" class="text-white text-decoration-none d-block py-1 fs-3">Principal</a></li>
         <li><a href="catalogo.php" class="text-white text-decoration-none d-block py-1 fs-3">Productos</a></li>
         <li><a href="Registrar.php" class="text-white text-decoration-none d-block py-1 fs-3">Registrarse</a></li>
         <li><a href="Login.php" class="text-white text-decoration-none d-block py-1 fs-3">Iniciar sesion</a></li>
+        <?php else:  ?>
+          <li><a href="posiblePrincipal.php" class="text-white text-decoration-none d-block py-1 fs-3">Principal</a></li>
+          <li><a href="catalogo.php" class="text-white text-decoration-none d-block py-1 fs-3">Productos</a></li>
+          <li><a href="#" class="text-white text-decoration-none d-block py-1 fs-3"><?php echo "Bienvenido $Nombre_de_usuario"?></a></li>
+          <?php if (isset($Cargo) == 3): ?>
+          <li><a href="principal.php" class="text-white text-decoration-none d-block py-1 fs-3">Panel Admin</a></li>
+          <?php endif; ?>
+          
+          
+        <?php endif; ?>
+
+
+                  
+
+        
       </ul>
     </div>
   </div>
@@ -37,32 +53,98 @@ function header_menu(){
   </div>
   <div class="offcanvas-body d-flex flex-column justify-content-between">
     <div class="cart-items">
-      <!-- Ejemplo de ítem -->
-      <div class="card bg-transparent border border-light-subtle mb-2">
-        <div class="card-body d-flex justify-content-between align-items-center">
-          <div>
-            <h6 class="mb-1 text-light">Sahumerio Lavanda</h6>
-          </div>
-          <div class="d-flex align-items-center gap-1">
-            <button class="btn btn-sm btn-purple minus">-</button>
-            <input type="number" value="1" min="1" class="form-control form-control-sm w-25 text-center">
-            <button class="btn btn-sm btn-purple plus">+</button>
-          </div>
-          <span class="fw-bold" data-price="3500">$3.500</span>
-        </div>
-      </div>
+      <!-- Los items serán renderizados por main.js -->
     </div>
+
+    <script>
+      (function(){
+        // Asegurarse de que la sesión PHP esté disponible y tomar el carrito de $_SESSION
+        <?php
+          if (session_status() !== PHP_SESSION_ACTIVE) {
+            @session_start();
+          }
+          $sessionCart = [];
+          if (isset($_SESSION['cart']) && is_array($_SESSION['cart'])) {
+            // Normalizar: asegurar keys id,title,price,img,qty en cada item
+            foreach ($_SESSION['cart'] as $it) {
+              $sessionCart[] = [
+                'id'    => isset($it['id']) ? $it['id'] : 0,
+                'title' => isset($it['title']) ? $it['title'] : '',
+                'price' => isset($it['price']) ? (float)$it['price'] : 0.0,
+                'img'   => isset($it['img']) ? $it['img'] : '',
+                'qty'   => isset($it['qty']) ? max(1,(int)$it['qty']) : 1
+              ];
+            }
+          }
+        ?>
+        const initial = <?php echo json_encode($sessionCart, JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE); ?>;
+        const STORAGE_KEY = 'cart_sahumerios';
+        try {
+          // Comprobar si localStorage contiene un array válido; si no, inicializar con la sesión
+          let ok = false;
+          try {
+            const raw = localStorage.getItem(STORAGE_KEY);
+            if (raw) {
+              const parsed = JSON.parse(raw);
+              ok = Array.isArray(parsed) && parsed.length > 0;
+            }
+          } catch (e) {
+            console.warn('localStorage contenido inválido', e);
+            ok = false;
+          }
+
+          if (Array.isArray(initial) && initial.length > 0 && !ok) {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(initial));
+            console.log('cart_sahumerios inicializado desde $_SESSION:', initial);
+          } else {
+            console.log('cart_sahumerios existente en localStorage (no se sobreescribe)');
+          }
+        } catch (e) {
+          console.error('No se pudo inicializar el carrito en localStorage', e);
+        }
+        // Intentar renderizar si la función ya está disponible
+        if (typeof renderCart === 'function') {
+          renderCart();
+        }
+      })();
+    </script>
 
     <div class="border-top border-purple pt-3">
       <div class="d-flex justify-content-between align-items-center mb-2">
         <span class="fw-semibold">Total:</span>
-        <input type="text" readonly value="$3.500" class="form-control form-control-sm text-end w-25">
+        <input type="text" readonly value="$0,00" class="form-control form-control-sm text-end w-25">
       </div>
       <button class="btn btn-purple w-100 mb-2 confirm">Confirmar compra</button>
       <button class="btn btn-outline-light w-100 clear">Borrar carrito</button>
     </div>
   </div>
 </div>
+
+  <!-- Script principal del carrito (CARGADO AQUÍ para disponibilidad global) -->
+  <script src="js/main.js"></script>
+
+  <script>
+    // El listener ahora está en main.js
+    // Pero dejamos este por si acaso para debugging
+    document.getElementById('cartOffcanvas').addEventListener('shown.bs.offcanvas', function () {
+      console.log('Offcanvas mostrado completamente');
+      if (typeof renderCart === 'function') {
+        renderCart();
+      }
+    });
+
+    // Mostrar mensaje de carrito vacío dinámicamente si no hay productos
+    document.addEventListener('DOMContentLoaded', function () {
+      function updateEmptyCartMessage() {
+        var cartItems = document.querySelector('.cart-items');
+        if (cartItems && cartItems.children.length === 0) {
+          cartItems.innerHTML = '<p class="text-muted">Tu carrito está vacío.</p>';
+        }
+      }
+      updateEmptyCartMessage();
+      // Si tienes lógica para agregar/eliminar productos, llama a updateEmptyCartMessage() después de cada cambio
+    });
+  </script>
 
   <?php
 }

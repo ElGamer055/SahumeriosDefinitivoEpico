@@ -15,12 +15,13 @@
     session_start();//para mantener la sesion abierta
     include 'funciones.php';
 
+    $Nombre_de_usuario = $_SESSION['user'];
     navAdmin();
     ?>
 
   <section class="principal-section">
     <h1>Bienvenida</h1>
-    <h2>Gisela</h2>
+    <h2><?php echo "$Nombre_de_usuario"?></h2>
   </section>
 
   <?php

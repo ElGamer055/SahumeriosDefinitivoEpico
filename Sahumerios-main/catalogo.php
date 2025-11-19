@@ -10,14 +10,14 @@
   <link rel="stylesheet" href="posible/index.css">
   <title>Teiwaz Sahumerios</title>
 </head>
-<body>
+
   <?php
   session_start();
   include 'holasoyfunciones.php';
   $Nombre_de_usuario = $_SESSION['user'] ?? null;
-  $Nombre = $_SESSION['nom'] ?? null;
+  $Cargo = $_SESSION['idcargo'] ?? null;  
   
-  header_menu();
+  header_menu($Nombre_de_usuario, $Cargo);
   ?>
 
   
@@ -29,18 +29,8 @@
   <!-- barra de búsqueda fija -->
   <form class="top-search d-flex px-4 mt-4" role="search" id="searchForm">
     <input class="form-control me-2" type="search" id="searchInput" placeholder="Search" aria-label="Search"/>
-    <div class="dropdown">
-      <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="filterDropdown" data-bs-toggle="dropdown">
-        Filtrar por
-      </button>
-      <ul class="dropdown-menu dropdown-menu-end">
-        <li><button class="dropdown-item" type="button" onclick="setFilter('todos')">Todos</button></li>
-        <li><button class="dropdown-item" type="button" onclick="setFilter('titulo')">Nombre</button></li>
-        <li><button class="dropdown-item" type="button" onclick="setFilter('descripcion')">Descripción</button></li>
-      </ul>
     </div>
   </form>
-
 
   <script>
     function setFilter(filterType) {
@@ -105,20 +95,10 @@
     <?php } ?>
   </div>
 
-  <footer class="bg-black text-light mt-4">
-    <div class="d-flex justify-content-between align-items-center py-4 px-4 border-bottom border-secondary flex-wrap">
-      <h1 class="px-3">Sahumerios Teiwaz</h1>
-      <div class="d-flex gap-4 px-4 mt-2">  
-        <i class="fa-brands fa-facebook fa-2xl"></i>
-        <i class="fa-brands fa-linkedin fa-2xl"></i>
-        <i class="fa-brands fa-youtube fa-2xl"></i>
-        <i class="fa-brands fa-instagram fa-2xl"></i>
-      </div>
-    </div>
-    <div class="container py-4 text-center">
-      <p class="mb-0 text-secondary">&copy; 2024 Teiwaz Sahumerios. Todos los derechos reservados.</p>
-    </div>
-  </footer>
+  <?php
+  footer();
+  ?>
+
   <script src="js/main.js"></script>
   <script src="js/bootstrap.js"></script>
 </body>
