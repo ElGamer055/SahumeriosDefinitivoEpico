@@ -30,9 +30,7 @@
   <form class="top-search d-flex px-4 mt-4" role="search" id="searchForm">
     <input class="form-control me-2" type="search" id="searchInput" placeholder="Search" aria-label="Search"/>
     <div class="dropdown">
-      <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="filterDropdown" data-bs-toggle="dropdown">
-        Filtrar por
-      </button>
+      
       <ul class="dropdown-menu dropdown-menu-end">
         <li><button class="dropdown-item" type="button" onclick="setFilter('todos')">Todos</button></li>
         <li><button class="dropdown-item" type="button" onclick="setFilter('titulo')">Nombre</button></li>
