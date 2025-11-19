@@ -12,7 +12,10 @@
   <link rel="stylesheet" href="posible/index.css">
 </head>
 <body>
-  <?php include 'holasoyfunciones.php'; ?>
+  <?php
+include 'holasoyfunciones.php'; 
+header_menu();
+?>
 
   <!-- Botones de menú y carrito -->
   <div class="position-fixed top-0 start-0 p-3 z-3">
@@ -27,7 +30,7 @@
   <div class="container py-4 mt-5">
     <header>
       <h1>Teiwaz Sahumerios</h1>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia rem quidem reiciendis cumque sed est enim, atque culpa ratione reprehenderit dignissimos?</p>
+      <p id="frase-aleatoria"></p>
     </header>
 
     <div class="text-center mb-3">

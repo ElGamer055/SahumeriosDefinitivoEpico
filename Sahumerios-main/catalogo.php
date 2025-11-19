@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -8,21 +9,18 @@
   <link rel="stylesheet" href="css/main3.css">
   <title>Teiwaz Sahumerios</title>
 </head>
-
-    <?php
-    session_start();//para mantener la sesion abierta
-    include 'holasoyfunciones.php';
-    $Nombre_de_usuario = $_SESSION['user'];
-    $Nombre = $_SESSION['nom'];
-    ?>
+<body>
+  <?php
+  session_start();
+  include 'holasoyfunciones.php';
+  $Nombre_de_usuario = $_SESSION['user'] ?? null;
+  $Nombre = $_SESSION['nom'] ?? null;
   
+  header_menu();
+  ?>
 
-    <?php
-        header_sahumerios($Nombre_de_usuario);//Header importado desde holasoyfunciones.php
-    ?>
-
-
-  <form class="d-flex" role="search" id="searchForm" style="gap: 10px; align-items: center;">
+  <!-- barra de búsqueda fija -->
+  <form class="top-search d-flex" role="search" id="searchForm">
     <input class="form-control me-2" type="search" id="searchInput" placeholder="Search" aria-label="Search"/>
     <div class="dropdown">
       <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="filterDropdown" data-bs-toggle="dropdown">
@@ -35,6 +33,9 @@
       </ul>
     </div>
   </form>
+
+  <!-- Título centrado -->
+  <h1 class="site-title">Catálogo de Productos</h1>
 
   <script>
     function setFilter(filterType) {
@@ -49,16 +50,19 @@
       const products = document.querySelectorAll('.product-card');
 
       products.forEach(product => {
-        const titulo = product.querySelector('h2').textContent.toLowerCase();
-        const descripcion = product.querySelector('p').textContent.toLowerCase();
+        const titulo = product.querySelector('h2') || product.querySelector('.title');
+        const descripcion = product.querySelector('p') || product.querySelector('.desc');
         let matches = false;
 
+        const tituloText = titulo ? titulo.textContent.toLowerCase() : '';
+        const descripcionText = descripcion ? descripcion.textContent.toLowerCase() : '';
+
         if (filterType === 'todos') {
-          matches = titulo.includes(searchInput) || descripcion.includes(searchInput);
+          matches = tituloText.includes(searchInput) || descripcionText.includes(searchInput);
         } else if (filterType === 'titulo') {
-          matches = titulo.includes(searchInput);
+          matches = tituloText.includes(searchInput);
         } else if (filterType === 'descripcion') {
-          matches = descripcion.includes(searchInput);
+          matches = descripcionText.includes(searchInput);
         }
 
         product.style.display = matches ? 'block' : 'none';
@@ -68,35 +72,18 @@
     document.getElementById('searchInput').addEventListener('keyup', filterProducts);
   </script>
 
-    <body>
-      <?php
-include("conexion.php");
-
-// Consultamos los productos
-$sql = "SELECT * FROM producto";
-$resultado = $conn->query($sql);
-?>
-
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <title>Catálogo Modular</title>
-  <link rel="stylesheet" href="estilos.css">
-</head>
-<body>
-  <h1>Catálogo de Productos</h1>
-
   <div class="products">
-    <?php while ($fila = $resultado->fetch_assoc()) { ?>
     <?php
-      // obtener ruta de imagen a partir del campo 'imagen' (texto) y concatenar ".jpg"
+    include("conexion.php");
+    $sql = "SELECT * FROM producto";
+    $resultado = $conn->query($sql);
+
+    while ($fila = $resultado->fetch_assoc()) { 
       $imgPath = 'img/' . $fila['Titulo'] . '.jpg';
-      // fallback si no existe el archivo
       if (!file_exists($imgPath) || empty($fila['Titulo'])) {
         $imgPath = 'img/sahur.jpg';
       }
-      ?>
+    ?>
       <a class="product-card" href="Productos.php?id=<?php echo $fila['ID']; ?>" style="text-decoration: none; color: inherit;">
         <img src="<?php echo htmlspecialchars($imgPath); ?>" alt="<?php echo htmlspecialchars($fila['Titulo']); ?>">
         
@@ -107,18 +94,13 @@ $resultado = $conn->query($sql);
         </div>
         
         <div class="card-footer">
-          <span class="precio" >$<?php echo number_format($fila['Precio'], 2); ?></span>
+          <span class="precio">$<?php echo number_format($fila['Precio'], 2); ?></span>
         </div>
       </a>
     <?php } ?>
   </div>
 
-  <script src="script.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/bootstrap.js"></script>
 </body>
-</html>
-
-
-</body>
-<script src="js/main.js"></script>
-<script src="js/bootstrap.js"></script>
 </html>
