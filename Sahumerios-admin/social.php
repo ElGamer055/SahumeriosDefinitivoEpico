@@ -23,7 +23,7 @@
     navAdmin();
     ?>
 
-  <main class="container text-center py-5">
+  <main class="container text-center py-5" style="min-height: 80vh; margin-top: 15%;">
     <div class="row justify-content-center mb-4">
       <div class="col-10 col-md-3">
         <button class="action-btn" data-target="#comentarios">💬 comentarios</button>
@@ -43,6 +43,15 @@
         <div class="list-group-item bg-dark text-white rounded-3 mb-2">"Excelente aroma y duración" — Marley</div>
         <div class="list-group-item bg-dark text-white rounded-3 mb-2">"Me encantó el de lavanda" — Gisela</div>
         <div class="list-group-item bg-dark text-white rounded-3 mb-2">"Entrega rápida y bien embalado" — Alex</div>
+        <div class="list-group-item bg-dark text-white rounded-3 mb-2">"Entrega rápida y bien embalado" — Alex</div>
+<div class="list-group-item bg-dark text-white rounded-3 mb-2">"Entrega rápida y bien embalado" — Alex</div>
+<div class="list-group-item bg-dark text-white rounded-3 mb-2">"Entrega rápida y bien embalado" — Alex</div>
+<div class="list-group-item bg-dark text-white rounded-3 mb-2">"Entrega rápida y bien embalado" — Alex</div>
+<div class="list-group-item bg-dark text-white rounded-3 mb-2">"Entrega rápida y bien embalado" — Alex</div>
+<div class="list-group-item bg-dark text-white rounded-3 mb-2">"Entrega rápida y bien embalado" — Alex</div>
+<div class="list-group-item bg-dark text-white rounded-3 mb-2">"Entrega rápida y bien embalado" — Alex</div>
+<div class="list-group-item bg-dark text-white rounded-3 mb-2">"Entrega rápida y bien embalado" — Alex</div>
+
       </div>
     </div>
 
