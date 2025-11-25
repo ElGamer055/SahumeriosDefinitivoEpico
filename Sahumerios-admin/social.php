@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="cssGeneral.css">
 </head>
 
-<body>
+<body style="background: url('img/foto.png') center/cover no-repeat;">
     <?php
     session_start();//para mantener la sesion abierta
     include 'funciones.php';

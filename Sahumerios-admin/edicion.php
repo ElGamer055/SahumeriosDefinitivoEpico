@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="cssGeneral.css">
 </head>
 
-<body>
+<body style="background: url('img/foto.png') center/cover no-repeat;">
     <?php
     session_start();//para mantener la sesion abierta
     include 'funciones.php';
@@ -23,6 +23,7 @@
     navAdmin();
     ?>
   </br></br></br></br><!--solucionar profecional-->
+  
   <main class="form-section d-flex flex-column align-items-center justify-content-center">
     <h2 class="mb-4">Ingreso de producto</h2>
 
