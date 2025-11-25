@@ -20,6 +20,6 @@ $consulta= "INSERT INTO `usuarios`(`Nombre_de_usuario`, `Nombre`, `Apellido`, `C
    
     echo '<script language="javascript">
         alert("Skibidi creado!");
-        location.href="posiblePrincipal.php";
+        location.href="index.php";
         </script>';
 ?>

@@ -28,9 +28,8 @@
             
             //redirige a 'index.php' si el resultado es mayor que 0
         }
-        header('location:posiblePrincipal.php');
+        header('location:index.php');
     }else{
-        //si el resultado no es mayor que 0, se muestra un mensaje de eeror usando javascript alert() y se redirige a 'login.php'.
         echo '<script language="javascript">
         alert("NOMBRE DE USUARIO O CONTRASEÑA INCORRECTO");
         location.href="login.php";

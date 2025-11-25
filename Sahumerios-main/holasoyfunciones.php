@@ -1,5 +1,5 @@
 <?php 
-error_reporting(0);
+
 
 function header_menu($Nombre_de_usuario, $Cargo){
   ?>
@@ -22,12 +22,12 @@ function header_menu($Nombre_de_usuario, $Cargo){
     <div class="offcanvas-body">
       <ul class="list-unstyled listaMenu">
         <?php if (isset($Nombre_de_usuario) == false): ?>
-        <li><a href="posiblePrincipal.php" class="text-white text-decoration-none d-block py-1 fs-3">Principal</a></li>
+        <li><a href="index.php" class="text-white text-decoration-none d-block py-1 fs-3">Principal</a></li>
         <li><a href="catalogo.php" class="text-white text-decoration-none d-block py-1 fs-3">Productos</a></li>
         <li><a href="Registrar.php" class="text-white text-decoration-none d-block py-1 fs-3">Registrarse</a></li>
         <li><a href="Login.php" class="text-white text-decoration-none d-block py-1 fs-3">Iniciar sesion</a></li>
         <?php else:  ?>
-          <li><a href="posiblePrincipal.php" class="text-white text-decoration-none d-block py-1 fs-3">Principal</a></li>
+          <li><a href="index.php" class="text-white text-decoration-none d-block py-1 fs-3">Principal</a></li>
           <li><a href="catalogo.php" class="text-white text-decoration-none d-block py-1 fs-3">Productos</a></li>
           <li><a href="#" class="text-white text-decoration-none d-block py-1 fs-3"><?php echo "Bienvenido $Nombre_de_usuario"?></a></li>
           <?php if (isset($Cargo) == 3): ?>
