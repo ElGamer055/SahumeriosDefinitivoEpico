@@ -1,0 +1,51 @@
+body {
+  font-family: 'Irish Grover', cursive;
+  background: linear-gradient(180deg, rgba(0,0,0,0.8), rgba(0,0,0,0.5)), url('img/foto.png') center/cover no-repeat;
+  color: white;
+  min-height: 100vh;
+}
+
+main {
+  padding-top: 100px; 
+}
+
+
+.action-btn {
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 2px solid white;
+  color: white;
+  border-radius: 15px;
+  padding: 15px 0;
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
+}
+
+.action-btn:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-3px);
+}
+
+.content-section {
+  display: none;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.5s ease;
+}
+
+.content-section.show {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+footer {
+  background-color: #000;
+  margin-top: 60px;
+}
+
+footer .social-icons {
+  font-size: 1.3rem;
+  letter-spacing: 10px;
+  margin: 10px 0;
+}
