@@ -15,10 +15,10 @@
   <?php
   session_start();
 include 'holasoyfunciones.php';
+
     $Nombre_de_usuario = $_SESSION['user'];
-    $Cargo = $_SESSION['idcargo'];
-    
-  header_menu($Nombre_de_usuario,  $Cargo);
+    $id = $_SESSION['id_deuser'];
+  header_menu($Nombre_de_usuario,  $id);
 ?>
 
   <!-- Botones de menú y carrito -->

@@ -1,7 +1,7 @@
 <?php 
 
 
-function header_menu($Nombre_de_usuario, $Cargo){
+function header_menu($Nombre_de_usuario, $id){
   ?>
   <!-- Botones de menú y carrito -->
   <div class="position-fixed top-0 start-0 p-3 z-3">
@@ -29,8 +29,8 @@ function header_menu($Nombre_de_usuario, $Cargo){
         <?php else:  ?>
           <li><a href="index.php" class="text-white text-decoration-none d-block py-1 fs-3">Principal</a></li>
           <li><a href="catalogo.php" class="text-white text-decoration-none d-block py-1 fs-3">Productos</a></li>
-          <li><a href="#" class="text-white text-decoration-none d-block py-1 fs-3"><?php echo "Bienvenido $Nombre_de_usuario"?></a></li>
-          <?php if (isset($Cargo) == 3): ?>
+          <li><a href="CerrarSesion.php" class="text-white text-decoration-none d-block py-1 fs-3"><?php echo "Bienvenido $Nombre_de_usuario"?></a></li>
+          <?php if (isset($id) == 1): ?>
           <li><a href="principal.php" class="text-white text-decoration-none d-block py-1 fs-3">Panel Admin</a></li>
           <?php endif; ?>
           

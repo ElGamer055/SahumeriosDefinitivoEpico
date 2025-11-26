@@ -1,7 +1,10 @@
 <?php
 session_start();
 include 'conexion.php';
-
+echo '<script language="javascript">
+        alert("NOMBRE DE USUARIO O CONTRASEÑA INCORRECTO");
+        location.href="productos.php";
+        </script>';
 // Solo POST
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     header('Location: Productos.php');
@@ -19,7 +22,7 @@ if (!empty($_POST['id']) && filter_var($_POST['id'], FILTER_VALIDATE_INT)) {
 
 // Validaciones básicas
 if ($product_id === null || $comentario === '') {
-    header("Location: Productos.php?id=" . ($product_id ?? ''));
+    header("Location: Products.php?id=" . ($product_id ?? ''));
     
     echo '<script language="javascript">
         alert("NOMBRE DE USUARIO O CONTRASEÑA INCORRECTO");
@@ -32,7 +35,7 @@ if (mb_strlen($comentario) > 2000) { // límite opcional
 }
 
 // Resolver Id de usuario desde sesión o buscando por nombre
-$user_id = null;
+$user_id = $_SESSION['id_deuser'] ?? 0;
 if (!empty($_SESSION['id'])) {
     $user_id = intval($_SESSION['id']);
 } elseif (!empty($_SESSION['idusuario'])) {
@@ -50,12 +53,9 @@ if (!empty($_SESSION['id'])) {
 
 // Si no hay usuario identificado, redirigir (puedes mostrar mensaje en el front)
 if (!$user_id) {
-    header("Location: Productos.php?id=" . intval($product_id));
+    header("Location: Products.php?id=" . intval($product_id));
     exit;
-    echo '<script language="javascript">
-        alert("no hay user papu");
-        location.href="productos.php";
-        </script>';
+    
 }
 
 // Insertar comentario (Fecha y Hora con funciones MySQL)
